@@ -9,4 +9,4 @@ David 3000
 matt 4000
 jacob 5000
 beth 6000
-greg 7000)
+greg 7000
