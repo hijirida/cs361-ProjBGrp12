@@ -10,3 +10,6 @@ matt 4000
 jacob 5000
 beth 6000
 greg 7000
+
+Open item if someone wants to create this...
+One way to solve this programmatically is to alter the server.js file to set port # value to a number that is local to your directory. Example everyone create a local file called "personal-port-number.txt" and it contains your personal port. then the server.js file reads the number from this text file. Need to add "personal-port-number.txt" to .gitignore file so that your local port # file doesn't get merged to main. (let me know if this doesn't make sense)
