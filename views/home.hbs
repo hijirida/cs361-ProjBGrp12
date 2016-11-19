@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS361 Project</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src='/js/app.js'></script>	
+  </head>
+	<body>
+		<div class="container">
+			<div class='jumbotron'>
+				<div class='container'>
+					<h1>Fit for Charity</h1>
+					<p>Working out to help others</p>
+				</div>
+			</div>	
+			<div class="form-group" method="GET" id='userType'>
+				<label>Are you:</label>
+				<div class="radio">
+				  <label><input type="radio" name="select-type" value="exerciser">Looking to support a charity by exercising</label>
+				</div>
+				<div class="radio">
+				  <label><input type="radio" name="select-type" value="donation">Looking to donate to a charity</label>
+				</div>
+				<div class="radio">
+				  <label><input type="radio" name="select-type" value="organization">A charity</label>
+				</div>
+				<button type="submit" class="btn btn-primary" id='submitUserType'>Submit</button>
+			</div>
+		</div>
+	</body>
+</html>
+
+
+
