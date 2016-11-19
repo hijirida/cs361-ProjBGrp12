@@ -16,6 +16,32 @@
           <h1>Welcome to the donator dashboard.</h1>
         </div>
       </div>  
+      <form class="form-horizontal" method='GET' action='http://52.27.76.189:3001/donation' id='charityDonation'>
+          <fieldset class="form-group">
+            <legend>Select a Charity</legend>
+            <div class='form-group'>
+              <label class="col-sm-2 control-label">Name:</label>
+              <div class="col-sm-6">
+                <select class="form-control" id="charity-name" name='name'>
+                {{#each charities}}
+                  <option>{{this.name}}</option>
+                {{/each}}
+                </select>
+              </div>
+            </div>
+            <div class='form-group'>
+              <label class="col-sm-2 control-label">Amount $</label>
+              <div class="col-sm-6">
+                <input type='number' name='amount'>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <input type="submit" class="btn btn-primary" id="submitCharityDonation">
+              </div>
+            </div>
+          </fieldset>
+        </form> 
     </div>
   </body>
 </html>

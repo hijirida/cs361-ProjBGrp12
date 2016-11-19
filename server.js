@@ -42,7 +42,18 @@ app.get('/exerciser', function(req, res) {
 });
 
 app.get('/donation', function(req, res) {
-  res.render('donation.hbs');
+  var filename = 'data/charities.txt';
+  console.log(req);
+
+  fs.readFile(filename, function(err, data) {
+    if (err) {
+      console.log("Error reading file: ", filename);
+    } else {
+      console.log("Success reading file: ", filename);
+      console.log(JSON.parse(data));
+      res.render('donation.hbs', JSON.parse(data));
+    }
+  });
 });
 
 app.get('/organization', function(req, res) {
@@ -57,8 +68,8 @@ app.use(function(req, res, next){
 });
 
 app.listen(app.get('port'), function(){
-        console.log( 'Express started on http://52.27.76.189:' + app.get('port') + ' press Ctrl-C to exit');
+  console.log( 'Express started on http://52.27.76.189:' + app.get('port') + ' press Ctrl-C to exit');
 });
 
 
-
+module.exports = {app: app};
