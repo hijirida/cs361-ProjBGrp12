@@ -1,9 +1,9 @@
 var mysql = require('mysql');
 var pool = mysql.createPool({
   host  : 'localhost',
-  user  : 'test',
+  user  : 'root',
   password: 'default',
-  database: 'test'
+  database: 'projectbgroup12'
 });
 
 exports.dbtest = function(){ return new Promise(function(resolve, reject){
@@ -13,13 +13,13 @@ exports.dbtest = function(){ return new Promise(function(resolve, reject){
       console.error('Something has gone wrong. Hopefully this error stack has something useful in it:\n' + err.stack);
       reject('DB Connection Error');
     };
-    con.query('SELECT content FROM hello', function( error, results, fields){
+    con.query('SELECT * FROM donor', function( error, results, fields){
       if(error){
         console.error('An issue happened after connecting to the database. Hopefully this stack trace yields something of interest:\n' + error.stack);
         con.release();
         reject('Query error: ' + error);
       };
-      outString = 'MySQL says ' + results[0].content;
+      outString = 'MySQL says ' + results[0].username;
       resolve(outString);
     });
     con.release();
