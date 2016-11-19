@@ -14,7 +14,7 @@ app.use(session({secret:'SuperSecretPassword', resave: false, saveUninitialized:
 app.set('view engine', 'hbs');
 
 
-app.get('/home', function(req, res){
+app.get('/', function(req, res){
   context = {}
 	var sess = req.session;
 	var views = req.session.views || 0;
