@@ -1,0 +1,9 @@
+ {"charities": 
+    [{
+      "name": "Children's Defense Fund",
+      "website": "www.childrensdefense.org"
+    }, {
+      "name": "ChildFund International",
+      "website": "https://www.childfund.org/"
+    }]
+  }
