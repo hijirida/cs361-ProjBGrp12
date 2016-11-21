@@ -5,6 +5,7 @@ var hbs = require('hbs');
 var fs = require('fs');
 
 var app = express();
+
 app.set('port', process.env.PORT || 3001);
 
 app.use(express.static(__dirname + '/public'));
@@ -16,15 +17,21 @@ app.set('view engine', 'hbs');
 
 app.get('/', function(req, res){
   context = {}
-	var sess = req.session;
-	var views = req.session.views || 0;
-  context.greeting = 'HELLO PROJECT B GROUP 12!!! Woooohoo!\n';
-	context.message = 'You have visited this page ' + views + ' times before. If this increments on refresh, sessions are working.\n';
-	req.session.views = views + 1;
+  var sess = req.session;
+  var views = req.session.views || 0;
+  //context.greeting = 'HELLO PROJECT B GROUP 12!!! Woooohoo!\n';
+  //context.message = 'You have visited this page ' + views + ' times before. If this increments on refresh, sessions are working.\n';
+  //req.session.views = views + 1;
   db.dbtest().then(function createResposne(val){
     context.dbResponse = val;
     res.render('home.hbs', context);
   });
+});
+
+app.get('/donorsetup', function(req, res) {
+  // add code here for donorsetup
+  console.log ("Successfully got to donorsetup");
+  res.render('donorsetup.hbs');
 });
 
 app.get('/exerciser', function(req, res) {
