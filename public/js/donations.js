@@ -1,4 +1,8 @@
-serverURL = 'http://52.27.76.189:3001/';
+//Grabs the URL including port # from the browser
+var host = window.location.host;
+console.log ("host = ", host);
+var serverURL = "http://" + host + "/"; 
+console.log ("serverURL = ", serverURL);
 
 $(document).ready(function () {
 	$("#submitCharityDonation").on('click', function (event) {
