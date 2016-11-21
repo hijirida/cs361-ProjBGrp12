@@ -50,14 +50,15 @@ app.get('/exerciser', function(req, res) {
 
 app.get('/donation', function(req, res) {
   var filename = 'data/charities.txt';
-  console.log(req);
+  
+  //update this to add to database
+  console.log('Data coming from client = ' + req.query.name);
 
+  //update this to be reading from database
   fs.readFile(filename, function(err, data) {
     if (err) {
       console.log("Error reading file: ", filename);
     } else {
-      console.log("Success reading file: ", filename);
-      console.log(JSON.parse(data));
       res.render('donation.hbs', JSON.parse(data));
     }
   });
