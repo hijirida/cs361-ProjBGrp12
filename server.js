@@ -17,8 +17,8 @@ app.set('view engine', 'hbs');
 
 app.get('/', function(req, res){
   context = {}
-  var sess = req.session;
-  var views = req.session.views || 0;
+  //var sess = req.session;
+  //var views = req.session.views || 0;
   //context.greeting = 'HELLO PROJECT B GROUP 12!!! Woooohoo!\n';
   //context.message = 'You have visited this page ' + views + ' times before. If this increments on refresh, sessions are working.\n';
   //req.session.views = views + 1;
@@ -30,8 +30,14 @@ app.get('/', function(req, res){
 
 app.get('/donorsetup', function(req, res) {
   // add code here for donorsetup
-  console.log ("Successfully got to donorsetup");
+  //console.log ("Successfully got to donorsetup");
   res.render('donorsetup.hbs');
+});
+
+app.get('/addDonor', function (req, res) {
+  // TODO: David to add code here for pushing donor data to databsae
+  console.log ("Successfully got to addDonor");
+  res.render('addDonor.hbs');
 });
 
 app.get('/exerciser', function(req, res) {
