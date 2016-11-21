@@ -17,6 +17,7 @@ app.set('view engine', 'hbs');
 
 app.get('/', function(req, res){
   context = {}
+  context.portNum = app.get('port');
   //var sess = req.session;
   //var views = req.session.views || 0;
   //context.greeting = 'HELLO PROJECT B GROUP 12!!! Woooohoo!\n';
@@ -41,6 +42,8 @@ app.get('/addDonor', function (req, res) {
 });
 
 app.get('/exerciser', function(req, res) {
+  context = {};
+  context.portNum = app.get('port');
   var filename = 'data/charities.txt';
 
   fs.readFile(filename, function(err, data) {
@@ -49,12 +52,15 @@ app.get('/exerciser', function(req, res) {
     } else {
       console.log("Success reading file: ", filename);
       console.log(JSON.parse(data));
-      res.render('exerciser.hbs', JSON.parse(data));
+      context.data = JSON.parse(data);
+      res.render('exerciser.hbs', context);
     }
   });
 });
 
 app.get('/donation', function(req, res) {
+  context = {};
+  context.portNum = app.get('port');
   var filename = 'data/charities.txt';
   
   //update this to add to database
@@ -65,13 +71,16 @@ app.get('/donation', function(req, res) {
     if (err) {
       console.log("Error reading file: ", filename);
     } else {
-      res.render('donation.hbs', JSON.parse(data));
+      context.data = JSON.parse(data);
+      res.render('donation.hbs', context);
     }
   });
 });
 
 app.get('/organization', function(req, res) {
-  res.render('organization.hbs');
+  context = {};
+  context.portNum = app.get('port');
+  res.render('organization.hbs', context);
 });
 
 
