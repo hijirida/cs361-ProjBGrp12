@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>CS361 Project</title>
+    <title>Add your charity</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -13,38 +13,61 @@
     <div class="container">
       <div class='jumbotron'>
         <div class='container'>
-          <h1>Welcome to the organization dashboard.</h1>
+          <h1>Add your charity to begin collecting donations</h1>
         </div>
       </div>  
-      <form class="form-horizontal" method='GET' action='http://52.27.76.189:3001/addCharity'>
+      <form class="form-horizontal" method='GET' id='newCharity' action='/addCharity' onsubmit="setTimeout(function() {window.location.reload(); }, 10)">
           <fieldset class="form-group">
-            <legend>Add A Charity (table set-up for if we use db or read/write to file)</legend>
+            <legend>Please complete all required fields</legend>
             <div class='form-group'>
-              <label class="col-sm-2 control-label">Name:</label>
+              <label class="col-sm-2 control-label">Charity name:</label>
               <div class="col-sm-10">
-                <input type='text' name='name'>
+                <input type='text' name='name' id='name'>
               </div>
             </div>
             <div class='form-group'>
               <label class="col-sm-2 control-label">Website:</label>
               <div class="col-sm-10">
-                <input type='text' name='website'>
+                <input type='text' name='website' id='website'>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Description:</label>
               <div class="col-sm-10">
-                <input type='number' name='charityDescription'>
+                <input type='text' name='charityDescription' id='charityDescription'>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
-                <input type="submit" class="btn btn-primary">
+                <input type="submit" id="submit" class="btn btn-primary">
               </div>
             </div>
           </fieldset>
         </form> 
        </div>
      </div>
+
+     <div class="container">
+        <h3>Current charities:</h3>
+        <table class="table table-bordered" id="charityTable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Website</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody id="charityBody">
+            {{#each results}}
+            <tr>
+              <td>{{this.charity_name}}</td>
+              <td>{{this.charity_website}}</td>
+              <td>{{this.charity_description}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+     </div>
   </body>
+  <!--<script src='/public/js/charity.js'></script>-->
 </html>

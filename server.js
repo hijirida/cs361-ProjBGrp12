@@ -3,6 +3,13 @@ var db = require('./dbtest.js');
 var session = require('express-session');
 var hbs = require('hbs');
 var fs = require('fs');
+var mysql = require('mysql');
+var pool = mysql.createPool({
+  host  : 'localhost',
+  user  : 'root',
+  password: 'default',
+  database: 'projectbgroup12'
+});
 
 var app = express();
 
@@ -78,6 +85,34 @@ app.get('/donation', function(req, res) {
 });
 
 app.get('/organization', function(req, res) {
+  var context = {};
+  pool.query("SELECT * FROM `charity`", function(err, rows, fields) {
+    if (err) {
+      console.log("error display charity table");;
+      return;
+    }
+    context.results = rows;
+    res.render('organization.hbs', context);
+  });
+});
+
+app.get('/addCharity', function(req, res) {
+  var context = {};
+  pool.query("INSERT INTO `charity`(`charity_name`, `charity_website`, `charity_description`) VALUES(?,?,?)",
+  [req.query.name, req.query.website, req.query.charityDescription],  function(err, results) {
+    if (err) {
+      console.log("error inserting charity table");
+      return;
+    }
+
+    /*pool.query("SELECT * FROM `charity`", function(err,rows,fields) {
+      if (err) {
+        console.log("error selecting charity table");
+        return;
+      }
+      res.send(JSON.stringify(rows));
+    });*/
+  });
   context = {};
   context.portNum = app.get('port');
   res.render('organization.hbs', context);
@@ -96,3 +131,5 @@ app.listen(app.get('port'), function(){
 
 
 module.exports = {app: app};
+
+// test
