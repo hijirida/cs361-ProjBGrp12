@@ -98,13 +98,13 @@ app.get('/addCharity', function(req, res) {
       return;
     }
 
-    pool.query("SELECT * FROM `charity`", function(err,rows,fields) {
+    /*pool.query("SELECT * FROM `charity`", function(err,rows,fields) {
       if (err) {
         console.log("error selecting charity table");
         return;
       }
       res.send(JSON.stringify(rows));
-    });
+    });*/
   });
 });
 
