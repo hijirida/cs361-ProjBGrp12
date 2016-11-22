@@ -72,7 +72,7 @@ app.get('/donation', function(req, res) {
 
 app.get('/organization', function(req, res) {
   var context = {};
-  db.pool.query("SELECT * FROM `charity`", function(err, rows, fields) {
+  pool.query("SELECT * FROM `charity`", function(err, rows, fields) {
     if (err) {
       next (err);
       return;
