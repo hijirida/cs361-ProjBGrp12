@@ -1,7 +1,7 @@
 var chDoc = document.getElementById('newCharity');
 
 /* main function to add new data to database and build table */
-/*document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
   chDoc.addEventListener('submit', function(event) {
     var req = new XMLHttpRequest();
 
@@ -27,10 +27,10 @@ var chDoc = document.getElementById('newCharity');
                  '&charityDescription=' + chDoc.elements.charityDescription.value);
     event.preventDefault();
   });
-});*/
+});
 
 /* addRow function populates each new row with data from the database. */
-/*function addRow(entry, newRow) {
+function addRow(entry, newRow) {
   var name = document.createElement('td');
   name.textContent = entry.name;
   newRow.appendChild(name);
@@ -42,4 +42,4 @@ var chDoc = document.getElementById('newCharity');
   var charityDescription = document.createElement('td');
   weight.textContent = entry.charityDescription;
   newRow.appendChild(charityDescription);
-};*/
+};
