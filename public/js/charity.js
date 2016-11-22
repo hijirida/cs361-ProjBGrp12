@@ -1,6 +1,6 @@
-document.getElementById("newCharity").onsubmit = function() {
+/*document.getElementById("newCharity").onsubmit = function() {
   location.reload(true);
-}
+}*/
 
 
 //var chDoc = document.getElementById('newCharity');
