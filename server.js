@@ -3,6 +3,13 @@ var db = require('./dbtest.js');
 var session = require('express-session');
 var hbs = require('hbs');
 var fs = require('fs');
+var mysql = require('mysql');
+var pool = mysql.createPool({
+  host  : 'localhost',
+  user  : 'root',
+  password: 'default',
+  database: 'projectbgroup12'
+});
 
 var app = express();
 
