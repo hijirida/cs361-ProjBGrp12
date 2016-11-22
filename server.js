@@ -91,7 +91,7 @@ app.get('/organization', function(req, res) {
 
 app.get('/addCharity', function(req, res) {
   var context = {};
-  pool.query("INSERT INTO `charity`(`charity_name`, `charity_website`, `charity_description` VALUES(?,?,?)",
+  pool.query("INSERT INTO `charity`(`charity_name`, `charity_website`, `charity_description`) VALUES(?,?,?)",
   [req.query.name, req.query.website, req.query.charityDescription],  function(err, results) {
     if (err) {
       console.log("error inserting charity table");
