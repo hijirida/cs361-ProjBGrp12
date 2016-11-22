@@ -81,7 +81,7 @@ app.get('/organization', function(req, res) {
   var context = {};
   pool.query("SELECT * FROM `charity`", function(err, rows, fields) {
     if (err) {
-      next (err);
+      console.log("error display charity table");;
       return;
     }
     context.results = rows;
@@ -94,13 +94,13 @@ app.get('/addCharity', function(req, res) {
   pool.query("INSERT INTO `charity`(`charity_name`, `charity_website`, `charity_description` VALUES(?,?,?)",
   [req.query.name, req.query.website, req.query.charityDescription],  function(err, results) {
     if (err) {
-      next (err);
+      console.log("error inserting charity table");
       return;
     }
 
     pool.query("SELECT * FROM `charity`", function(err,rows,fields) {
       if (err) {
-        next (err);
+        console.log("error selecting charity table");
         return;
       }
       res.send(JSON.stringify(rows));
