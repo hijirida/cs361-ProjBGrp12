@@ -23,8 +23,9 @@
               <label class="col-sm-2 control-label">Name:</label>
               <div class="col-sm-6">
                 <select class="form-control" id="charity-name" name='name'>
-                {{#each data.charities}}
-                  <option value='{{this.name}}'>{{this.name}}</option>
+                {{#each results}}
+                  <!-- probably want to update value with charity id? -->
+                  <option value='{{this.charity_name}}'>{{this.charity_name}}</option>
                 {{/each}}
                 </select>
               </div>
