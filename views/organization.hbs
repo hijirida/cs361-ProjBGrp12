@@ -18,9 +18,9 @@
       </div>  
       <form class="form-horizontal" method='GET' action='http://52.27.76.189:3001/addCharity'>
           <fieldset class="form-group">
-            <legend>Please provide your charities information</legend>
+            <legend>Please complete all required fields</legend>
             <div class='form-group'>
-              <label class="col-sm-2 control-label">Name:</label>
+              <label class="col-sm-2 control-label">Charity name:</label>
               <div class="col-sm-10">
                 <input type='text' name='name'>
               </div>
@@ -45,6 +45,28 @@
           </fieldset>
         </form> 
        </div>
+     </div>
+
+     <div>
+        <h3>Current charities</h3>
+        <table id="charityTable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Website</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody id="charityBody">
+            {{#each results}}
+            <tr>
+              <td>{{this.charity_name}}</td>
+              <td>{{this.charity_website}}</td>
+              <td>{{this.charity_description}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
      </div>
   </body>
 </html>

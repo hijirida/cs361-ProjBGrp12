@@ -71,7 +71,15 @@ app.get('/donation', function(req, res) {
 });
 
 app.get('/organization', function(req, res) {
-  res.render('organization.hbs');
+  var context = {};
+  db.pool.query("SELECT * FROM `charity`", function(err, rows, fields) {
+    if (err) {
+      next (err);
+      return;
+    }
+    context.results = rows;
+    res.render('organization.hbs', context);
+  });
 });
 
 
