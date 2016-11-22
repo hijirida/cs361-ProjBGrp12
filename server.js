@@ -98,14 +98,6 @@ app.get('/addCharity', function(req, res) {
       return;
     }
   });
-  pool.query("SELECT * FROM `charity`", function(err, rows, fields) {
-    if (err) {
-      next (err);
-      return;
-    }
-    context.results = rows;
-    res.render('organization.hbs', context);
-  });
 });
 
 
