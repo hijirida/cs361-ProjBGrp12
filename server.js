@@ -97,6 +97,14 @@ app.get('/addCharity', function(req, res) {
       next (err);
       return;
     }
+
+    pool.query("SELECT * FROM `charity`", function(err,rows,fields) {
+      if (err) {
+        next (err);
+        return;
+      }
+      res.send(JSON.stringify(rows));
+    });
   });
 });
 

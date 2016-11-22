@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>CS361 Project</title>
+    <title>Add your charity</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -16,7 +16,7 @@
           <h1>Add your charity to begin collecting donations</h1>
         </div>
       </div>  
-      <form class="form-horizontal" method='GET' action='http://52.27.76.189:5000/addCharity'>
+      <form class="form-horizontal" method='GET' id='newCharity' action='/addCharity'>
           <fieldset class="form-group">
             <legend>Please complete all required fields</legend>
             <div class='form-group'>
@@ -69,4 +69,5 @@
         </table>
      </div>
   </body>
+  <script src='/js/charity.js'></script>
 </html>
