@@ -6,7 +6,7 @@ var fs = require('fs');
 
 var app = express();
 
-app.set('port', process.env.PORT || 3001);
+app.set('port', process.env.PORT || 5000);
 
 app.use(express.static(__dirname + '/public'));
 app.use(session({secret:'SuperSecretPassword', resave: false, saveUninitialized: true}));
