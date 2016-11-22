@@ -89,6 +89,25 @@ app.get('/organization', function(req, res) {
   });
 });
 
+app.get('/addCharity', function(req, res) {
+  var context = {};
+  pool.query("INSERT INTO `charity`(`charity_name`, `charity_website`, `charity_description` VALUES(?,?,?)",
+  [req.query.name, req.query.website, req.query.charityDescription],  function(err, results) {
+    if (err) {
+      next (err);
+      return;
+    }
+  });
+  pool.query("SELECT * FROM `charity`", function(err, rows, fields) {
+    if (err) {
+      next (err);
+      return;
+    }
+    context.results = rows;
+    res.render('organization.hbs', context);
+  });
+});
+
 
 app.use(function(req, res, next){
   res.type('text/plain');
