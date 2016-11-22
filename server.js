@@ -51,17 +51,15 @@ app.get('/addDonor', function (req, res) {
 app.get('/exerciser', function(req, res) {
   context = {};
   context.portNum = app.get('port');
-  var filename = 'data/charities.txt';
 
-  fs.readFile(filename, function(err, data) {
+  //updated to be reading from database
+  pool.query("SELECT * FROM `charity`", function(err, rows, fields) {
     if (err) {
-      console.log("Error reading file: ", filename);
-    } else {
-      console.log("Success reading file: ", filename);
-      console.log(JSON.parse(data));
-      context.data = JSON.parse(data);
-      res.render('exerciser.hbs', context);
+      console.log("error display charity table");;
+      return;
     }
+    context.results = rows;
+    res.render('exerciser.hbs', context);
   });
 });
 

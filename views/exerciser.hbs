@@ -15,17 +15,17 @@
 				<h1>Welcome to the exerciser dashboard.</h1>
 			</div>
 		</div>	
-		<h2>Charities to Exercise for (reading from charities.txt)</h2>
+		<h2>Charities to Exercise</h2>
 		<table class="table table-striped">
 			<tr>
 				<th>Charity Name</th>
 				<th>Website</th>
 			</tr>
 			<tbody>
-				{{#each data.charities}}
+				{{#each results}}
 				<tr>
-					<td>{{this.name}}</td>
-					<td><a href={{this.website}}>{{this.website}}</td>
+					<td>{{this.charity_name}}</td>
+					<td><a href={{this.charity_website}}>{{this.charity_website}}</td>
 				</tr>
 				{{/each}}
 			</tbody>
