@@ -12,10 +12,40 @@
       <div class="container">
        <div class='jumbotron'>
         <div class='container'>
-          <h1>We have created your donor profile!</h1>
+          <h1>Success!</h1>
+	  <p>We created your new donor profile (see below).</p>
         </div>
        </div>
      </div>
      <a href="/">Go back to home page</a>
+
+       <div class="container">
+        <h3>Current donors:</h3>
+        <table class="table table-bordered" id="donorTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Username</th>
+              <th>Password</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Short Description</th>
+            </tr>
+          </thead>
+          <tbody id="donorBody">
+            {{#each results}}
+            <tr>
+              <td>{{this.donor_id}}</td>
+              <td>{{this.username}}</td>
+              <td>{{this.password}}</td>
+              <td>{{this.first_name}}</td>
+              <td>{{this.last_name}}</td>
+              <td>{{this.short_description}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+     </div>
+
    </body>
 </html>
