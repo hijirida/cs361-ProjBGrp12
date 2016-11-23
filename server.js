@@ -41,35 +41,67 @@ app.get('/donorsetup', function(req, res) {
       return;
     }
     context.results = rows;
-    console.log(context);
+    //console.log(context);
     res.render('donorsetup.hbs', context);
   });
 });
 
-app.get('/addDonor', function (req, res) {
-  context = {};
-  console.log ("Successfully got to addDonor");
-  if (req.query.username !== undefined) {
-      pool.query("INSERT INTO `donor`(`username`, `password`, `first_name`, `last_name`, `short_description`) VALUES(?,?,?,?,?)",
-      [req.query.username, req.query.password, req.query.first_name, req.query.last_name, req.query.short_description],
-      function(err, results) {
-        if (err) {
-          console.log("error inserting charity table");
-          return;
-        }
-      });
-    }; 
 
+app.get('/addDonor', function (req, res, next) {
+  context = {};
+  foundDuplicate = false;
+  console.log ("Successfully got to addDonor");
   
-   pool.query("SELECT * FROM `donor`", function(err, rows, fields) {
-    if (err) {
+  // check for duplicate username first
+  if (req.query.username !== undefined) {
+    querystring = "SELECT `username` FROM `donor` WHERE `username` = '" + req.query.username + "'";
+    //console.log(querystring);
+    pool.query (querystring, 
+       function(err, rows, fields, foundDuplicate) {
+          if (err) {
+             console.log("error checking for donor duplicates");
+             return;
+         }
+         console.log ("rows = ", rows);
+	 if (rows == undefined || rows == null || rows.length <=0) {
+            foundDuplicate = false;
+         } else {
+            foundDuplicate = true;
+         }
+         //console.log ("found duplicate1 = ", foundDuplicate);
+  
+         if (foundDuplicate == false) {
+            if (req.query.username !== undefined) {
+               console.log("req.query.username1 = ", req.query.username);
+               pool.query("INSERT INTO `donor`(`username`, `password`, `first_name`, `last_name`, `short_description`) VALUES(?,?,?,?,?)",
+               [req.query.username, req.query.password, req.query.first_name, req.query.last_name, req.query.short_description],
+               function(err, results) {
+                 if (err) {
+                   console.log("error inserting donor table");
+                   return;
+                 }
+               });    
+            }
+         } 
+       }
+    );
+  }
+
+  // Note: I played with adding a slight delay because the table below was rendering before the new donor entry was added
+  // Improvement note: Show a different view if there is a duplicate username "sorry, there is a duplicate username" message
+  setTimeout(function() {
+    pool.query("SELECT * FROM `donor`", function(err, rows, fields) {
+     if (err) {
       console.log("error displaying data from donor table");
       return;
-    }
-  context.results = rows;
-  res.render('addDonor.hbs', context);
-  });
+     }
+     context.results = rows;
+     res.render('addDonor.hbs', context);
+    });
+  }, 500);
+
 });
+
 
 app.get('/exerciser', function(req, res) {
   context = {};
