@@ -23,9 +23,8 @@
               <label class="col-sm-2 control-label">Name:</label>
               <div class="col-sm-6">
                 <select class="form-control" id="charity-name" name='name'>
-                {{#each results}}
-                  <!-- probably want to update value with charity id? -->
-                  <option value='{{this.charity_name}}'>{{this.charity_name}}</option>
+                {{#each charities}}
+                  <option value='{{this.charity_id}}'>{{this.charity_name}}</option>
                 {{/each}}
                 </select>
               </div>
@@ -43,6 +42,21 @@
             </div>
           </fieldset>
         </form> 
+        <h2>Pledged Donations</h2>
+        <table class="table table-striped">
+          <tr>
+            <th>Charity Name</th>
+            <th>Pledge Amount</th>
+          </tr>
+          <tbody>
+            {{#each donations}}
+            <tr>
+              <td>{{this.charity_name}}</td>
+              <td>{{this.donation_amount}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
     </div>
   </body>
 </html>

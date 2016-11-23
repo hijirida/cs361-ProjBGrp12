@@ -1,5 +1,5 @@
 var express = require('express');
-var db = require('./dbtest.js');
+var db = require('./dbqueries.js');
 var session = require('express-session');
 var hbs = require('hbs');
 var fs = require('fs');
@@ -23,12 +23,7 @@ app.set('view engine', 'hbs');
 
 
 app.get('/', function(req, res){
-  context = {}
-  context.portNum = app.get('port');
-  db.dbtest().then(function createResposne(val){
-    context.dbResponse = val;
-    res.render('home.hbs', context);
-  });
+  res.render('home.hbs', context);
 });
 
 app.get('/donorsetup', function(req, res) {
@@ -122,17 +117,26 @@ app.get('/donation', function(req, res) {
   context = {};
   context.portNum = app.get('port');
   
-  //update this to add to database
-  console.log('Data coming from client = ' + req.query.name);
+  //Adds donation amounts and associated charity to the donations table
+  if (req.query.amount !== undefined) {
+    pool.query("INSERT INTO `donations`(`donation_amount`, `charity_id`) VALUES (?,?)",
+      [req.query.amount, req.query.charity_id], function(err, results) {
+        if (err) {
+          console.log("error inserting into donations table");
+          return;
+        }
+      });
+  };
 
-  //updated to be reading from database
-  pool.query("SELECT * FROM `charity`", function(err, rows, fields) {
-    if (err) {
-      console.log("error display charity table");;
-      return;
-    }
-    context.results = rows;
-    res.render('donation.hbs', context);
+  //Query to get donations in dbtest.js Was struggling to asychronously make multiple db queries
+  db.getDonations().then(function(donations) {
+    //updated to be reading from database
+
+    db.getCharities().then(function(charities) {
+      context.donations = donations;
+      context.charities = charities;
+      res.render('donation.hbs', context);
+    });
   });
 });
 
@@ -156,7 +160,6 @@ app.get('/organization', function(req, res) {
       return;
     }
     context.results = rows;
-    console.log(context.results);
     res.render('organization.hbs', context);
   });
 });
