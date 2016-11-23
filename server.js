@@ -133,14 +133,18 @@ app.get('/donation', function(req, res) {
       });
   };
 
-  //updated to be reading from database
-  pool.query("SELECT * FROM `charity`", function(err, rows, fields) {
-    if (err) {
-      console.log("error display charity table");;
-      return;
-    }
-    context.results = rows;
-    res.render('donation.hbs', context);
+  //Query to get donations in dbtest.js Was struggling to asychronously make multiple db queries
+  db.getDonations().then(function(donations) {
+    //updated to be reading from database
+    pool.query("SELECT * FROM `charity`", function(err, charities, fields) {
+      if (err) {
+        console.log("error display charity table");;
+        return;
+      }
+      context.donations = donations;
+      context.charities = charities;
+      res.render('donation.hbs', context);
+    });
   });
 });
 

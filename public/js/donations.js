@@ -11,6 +11,7 @@ $(document).ready(function () {
 		console.log(id);
 		var amount = $('#charityDonation').find('input[name="amount"]').val();
 		console.log(amount);
-		$.get(serverURL + 'donation?charity_id='+id+'&amount='+amount);
+		$.get(serverURL + 'donation?charity_id='+id+'&amount='+amount)
+			.done(window.location = serverURL + 'donation');
 	});
 });
