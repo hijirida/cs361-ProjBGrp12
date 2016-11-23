@@ -51,71 +51,59 @@ app.get('/addDonor', function (req, res) {
 app.get('/exerciser', function(req, res) {
   context = {};
   context.portNum = app.get('port');
-  var filename = 'data/charities.txt';
 
-  fs.readFile(filename, function(err, data) {
-    if (err) {
-      console.log("Error reading file: ", filename);
-    } else {
-      console.log("Success reading file: ", filename);
-      console.log(JSON.parse(data));
-      context.data = JSON.parse(data);
-      res.render('exerciser.hbs', context);
-    }
-  });
-});
-
-app.get('/donation', function(req, res) {
-  context = {};
-  context.portNum = app.get('port');
-  var filename = 'data/charities.txt';
-  
-  //update this to add to database
-  console.log('Data coming from client = ' + req.query.name);
-
-  //update this to be reading from database
-  fs.readFile(filename, function(err, data) {
-    if (err) {
-      console.log("Error reading file: ", filename);
-    } else {
-      context.data = JSON.parse(data);
-      res.render('donation.hbs', context);
-    }
-  });
-});
-
-app.get('/organization', function(req, res) {
-  var context = {};
+  //updated to be reading from database
   pool.query("SELECT * FROM `charity`", function(err, rows, fields) {
     if (err) {
       console.log("error display charity table");;
       return;
     }
     context.results = rows;
-    res.render('organization.hbs', context);
+    res.render('exerciser.hbs', context);
   });
 });
 
-app.get('/addCharity', function(req, res) {
-  var context = {};
-  pool.query("INSERT INTO `charity`(`charity_name`, `charity_website`, `charity_description`) VALUES(?,?,?)",
-  [req.query.name, req.query.website, req.query.charityDescription],  function(err, results) {
-    if (err) {
-      console.log("error inserting charity table");
-      return;
-    }
-
-    /*pool.query("SELECT * FROM `charity`", function(err,rows,fields) {
-      if (err) {
-        console.log("error selecting charity table");
-        return;
-      }
-      res.send(JSON.stringify(rows));
-    });*/
-  });
+app.get('/donation', function(req, res) {
   context = {};
   context.portNum = app.get('port');
-  res.render('organization.hbs', context);
+  
+  //update this to add to database
+  console.log('Data coming from client = ' + req.query.name);
+
+  //updated to be reading from database
+  pool.query("SELECT * FROM `charity`", function(err, rows, fields) {
+    if (err) {
+      console.log("error display charity table");;
+      return;
+    }
+    context.results = rows;
+    res.render('donation.hbs', context);
+  });
+});
+
+
+app.get('/organization', function(req, res) {
+  var context = {};
+
+  if (req.query.name !== undefined) {
+      pool.query("INSERT INTO `charity`(`charity_name`, `charity_website`, `charity_description`) VALUES(?,?,?)",
+      [req.query.name, req.query.website, req.query.charityDescription],  function(err, results) {
+        if (err) {
+          console.log("error inserting charity table");
+          return;
+        }
+      });
+    }; 
+
+  pool.query("SELECT * FROM `charity`", function(err, rows, fields) {
+    if (err) {
+      console.log("error display charity table");;
+      return;
+    }
+    context.results = rows;
+    console.log(context.results);
+    res.render('organization.hbs', context);
+  });
 });
 
 
