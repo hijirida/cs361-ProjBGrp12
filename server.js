@@ -13,19 +13,48 @@ var pool = mysql.createPool({
 
 var app = express();
 
-app.set('port', process.env.PORT || 3001);
+app.set('port', process.env.PORT || 3002);
 
 app.use(express.static(__dirname + '/public'));
 app.use(session({secret:'SuperSecretPassword', resave: false, saveUninitialized: true}));
-//app.use(bodyParser.urlencoded({ extended: false }));
-//app.use(bodyParser.json());
 app.set('view engine', 'hbs');
 
 
+//Renders landing page for app
 app.get('/', function(req, res){
-  res.render('home.hbs', context);
+  res.render('landing.hbs');
 });
 
+
+
+//Renders login / sign-up pages for user types
+app.get('/donor', function(req, res) {
+  context = {};
+  db.getDonors().then(function (donors) {
+    context.donors = donors;
+    res.render('donor.hbs', context);
+  });
+});
+
+app.get('/charity', function(req, res) {
+  context = {};
+  db.getCharities().then(function (charities) {
+    context.charities = charities;
+    res.render('charity.hbs', context);
+  });
+});
+
+app.get('/sponsor', function(req, res) {
+  context = {};
+  db.getSponsors().then(function (sponsors) {
+    context.sponsors = sponsors;
+    res.render('sponsor.hbs', context);
+  });
+});
+
+
+
+//Renders pages to set up new accounts
 app.get('/donorsetup', function(req, res) {
   // add code here for donorsetup
   context = {};
@@ -97,51 +126,7 @@ app.get('/addDonor', function (req, res, next) {
 
 });
 
-
-app.get('/exerciser', function(req, res) {
-  context = {};
-  context.portNum = app.get('port');
-
-  //updated to be reading from database
-  pool.query("SELECT * FROM `charity`", function(err, rows, fields) {
-    if (err) {
-      console.log("error display charity table");;
-      return;
-    }
-    context.results = rows;
-    res.render('exerciser.hbs', context);
-  });
-});
-
-app.get('/donation', function(req, res) {
-  context = {};
-  context.portNum = app.get('port');
-  
-  //Adds donation amounts and associated charity to the donations table
-  if (req.query.amount !== undefined) {
-    pool.query("INSERT INTO `donations`(`donation_amount`, `charity_id`) VALUES (?,?)",
-      [req.query.amount, req.query.charity_id], function(err, results) {
-        if (err) {
-          console.log("error inserting into donations table");
-          return;
-        }
-      });
-  };
-
-  //Query to get donations in dbtest.js Was struggling to asychronously make multiple db queries
-  db.getDonations().then(function(donations) {
-    //updated to be reading from database
-
-    db.getCharities().then(function(charities) {
-      context.donations = donations;
-      context.charities = charities;
-      res.render('donation.hbs', context);
-    });
-  });
-});
-
-
-app.get('/organization', function(req, res) {
+app.get('/add-charity', function(req, res) {
   var context = {};
 
   if (req.query.name !== undefined) {
@@ -151,16 +136,69 @@ app.get('/organization', function(req, res) {
           console.log("error inserting charity table");
           return;
         }
+        console.log(results);
       });
     }; 
 
-  pool.query("SELECT * FROM `charity`", function(err, rows, fields) {
-    if (err) {
-      console.log("error display charity table");;
-      return;
-    }
-    context.results = rows;
-    res.render('organization.hbs', context);
+  db.getCharities().then(function(charities) {
+    context.results = charities;
+    res.render('addCharity.hbs', context);
+  });
+});
+
+
+
+//Renders dashboards
+app.get('/donator-dashboard', function(req, res) {
+  context = {};
+  console.log("Incoming user is " + req.query.donor_id);
+
+  db.getDonor(req.query.donor_id).then(function (donor) {
+    db.getCharities().then(function(charities) {
+      context.donor = donor[0];
+      context.charities = charities;
+      console.log(donor);
+      res.render('donatorDashboard', context);
+    });
+  });
+});
+
+app.get('/charity-dashboard', function(req, res) {
+  context = {};
+  console.log("Incoming user is " + req.query.charity_id);
+
+  db.getCharity(req.query.charity_id).then(function (charity) {
+      context.charity = charity[0];
+      console.log(charity);
+      res.render('charityDashboard.hbs', context);
+  });
+});
+
+app.get('/sponsor-dashboard', function(req, res) {
+  context = {};
+  console.log("Incoming user is " + req.query.sponsor_id);
+
+    //Adds donation amounts and associated charity to the donations table
+  if (req.query.amount !== undefined) {
+    pool.query("INSERT INTO `sponsorships`(`donation_amount`, `charity_id`, `sponsor_id`) VALUES (?,?,?)",
+      [req.query.amount, req.query.charity_id, req.query.sponsor_id], function(err, results) {
+        if (err) {
+          console.log("error inserting into donations table");
+          return;
+        }
+      });
+  };
+
+  db.getSponsor(req.query.sponsor_id).then(function (sponsor) {
+    db.getCharities().then(function (charities) {
+      db.getSponsorships(req.query.sponsor_id).then(function (sponsorships) {
+          context.sponsorships = sponsorships;      
+          context.sponsor = sponsor[0];
+          context.charities = charities;
+          console.log(sponsor);
+          res.render('sponsorDashboard.hbs', context);
+      });
+    });
   });
 });
 
@@ -178,4 +216,3 @@ app.listen(app.get('port'), function(){
 
 module.exports = {app: app};
 
-// test

@@ -6,19 +6,30 @@ var pool = mysql.createPool({
   database: 'projectbgroup12'
 });
 
-exports.getDonations = function() { 
+exports.getDonors = function() { 
   return new Promise(function(resolve, reject) {
-    pool.query("SELECT * FROM `charity` INNER JOIN `donations` ON charity.charity_id = donations.charity_id", function(err, results, fields) {
+    pool.query("SELECT * FROM `donor`", function(err, results, fields) {
       if (err) {
         console.log("error display charity table");;
         return;
       }
-      var query_results = results;
-      resolve(query_results);
+      resolve(results);
     });
   });
 };
 
+//Returns data specifc to a certain donor
+exports.getDonor = function(id) { 
+  return new Promise(function(resolve, reject) {
+    pool.query("SELECT * FROM `donor` WHERE donor_id ="+id+"", function(err, results, fields) {
+      if (err) {
+        console.log("error displaying donor table");;
+        return;
+      }
+      resolve(results);
+    });
+  });
+};
 
 exports.getCharities = function() { 
   return new Promise(function(resolve, reject) {
@@ -27,8 +38,57 @@ exports.getCharities = function() {
         console.log("error display charity table");;
         return;
       }
-      var query_results = results;
-      resolve(query_results);
+      resolve(results);
     });
   });
 };
+
+exports.getCharity = function(id) { 
+  return new Promise(function(resolve, reject) {
+    pool.query("SELECT * FROM `charity` WHERE charity_id ="+id+"", function(err, results, fields) {
+      if (err) {
+        console.log("error display charity table");;
+        return;
+      }
+      resolve(results);
+    });
+  });
+};
+
+exports.getSponsors = function() { 
+  return new Promise(function(resolve, reject) {
+    pool.query("SELECT * FROM `sponsor`", function(err, results, fields) {
+      if (err) {
+        console.log("error display charity table");;
+        return;
+      }
+      resolve(results);
+    });
+  });
+};
+
+exports.getSponsor = function(id) { 
+  return new Promise(function(resolve, reject) {
+    pool.query("SELECT * FROM `sponsor` WHERE sponsor_id ="+id+"", function(err, results, fields) {
+      if (err) {
+        console.log("error display charity table");;
+        return;
+      }
+      resolve(results);
+    });
+  });
+};
+
+exports.getSponsorships = function(id) { 
+  return new Promise(function(resolve, reject) {
+    pool.query("SELECT * FROM `sponsorships` INNER JOIN `charity` ON sponsorships.charity_id=charity.charity_id WHERE sponsor_id="+id+"", function(err, results, fields) {
+      if (err) {
+        console.log("error display charity table");;
+        return;
+      }
+      resolve(results);
+    });
+  });
+};
+
+
