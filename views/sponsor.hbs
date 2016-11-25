@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS361 Project</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src='/js/sponsor.js'></script>  
+  </head>
+  <body>
+    <div class="container">
+      <div class='jumbotron'>
+        <div class='container'>
+          <h1>Welcome to the sponsor landing page.</h1>
+        </div>
+      </div>  
+      <form class="form-horizontal" method='GET' action='/sponsor-dashboard' id='getSponsor'>
+          <fieldset class="form-group">
+            <legend>Select your account</legend>
+            <div class='form-group'>
+              <label class="col-sm-2 control-label">Name:</label>
+              <div class="col-sm-6">
+                <select class="form-control" id="sponsor-name" name='sponsor_id'>
+                {{#each sponsors}}
+                  <option value='{{this.sponsor_id}}'>{{this.sponsor_name}}</option>
+                {{/each}}
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <input type="submit" class="btn btn-primary" id="submitSponsorName">
+              </div>
+            </div>
+          </fieldset>
+        </form> 
+        <form action="/sponsor-setup">
+        <button type="submit" class="btn btn-primary" id="newDonor">Click here to create a sponsor profile</button>
+      </form>
+    </div>
+  </body>
+</html>
