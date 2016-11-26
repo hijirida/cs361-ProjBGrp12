@@ -79,9 +79,33 @@ exports.getSponsor = function(id) {
   });
 };
 
-exports.getSponsorships = function(id) { 
+exports.getSponsorshipsBySponsor = function(id) { 
   return new Promise(function(resolve, reject) {
     pool.query("SELECT * FROM `sponsorships` INNER JOIN `charity` ON sponsorships.charity_id=charity.charity_id WHERE sponsor_id="+id+"", function(err, results, fields) {
+      if (err) {
+        console.log("error display charity table");;
+        return;
+      }
+      resolve(results);
+    });
+  });
+};
+
+exports.getAvailableSponsorships = function(id) { 
+  return new Promise(function(resolve, reject) {
+    pool.query("SELECT * FROM `sponsorships` INNER JOIN `charity` ON sponsorships.charity_id=charity.charity_id", function(err, results, fields) {
+      if (err) {
+        console.log("error display charity table");;
+        return;
+      }
+      resolve(results);
+    });
+  });
+};
+
+exports.getSponsorshipsByDonor = function(id) { 
+  return new Promise(function(resolve, reject) {
+    pool.query("SELECT * FROM `donor_sponsor` INNER JOIN `sponsorships` ON donor_sponsor.sponsorship_id=sponsorships.id INNER JOIN `charity` ON sponsorships.charity_id = charity.charity_id WHERE donor_sponsor.donor_id="+id+"", function(err, results, fields) {
       if (err) {
         console.log("error display charity table");;
         return;
