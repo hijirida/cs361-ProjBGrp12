@@ -11,9 +11,11 @@ $(document).ready(function () {
 		console.log(id);
 		var amount = $('#createSponsorship').find('input[name="amount"]').val();
 		console.log(amount);
+		var steps = $('#createSponsorship').find('input[name="steps"]').val();
+		console.log(steps);
 		var sponsorId = $('#createSponsorship').find('input[name="sponsor_id"]').val();
 		console.log('Sponsor id = ' + sponsorId);
-		$.get(serverURL + 'sponsor-dashboard?sponsor_id='+sponsorId+'&charity_id='+id+'&amount='+amount)
+		$.get(serverURL + 'sponsor-dashboard?sponsor_id='+sponsorId+'&charity_id='+id+'&amount='+amount+'&steps='+steps)
 			.done(window.location = serverURL + 'sponsor-dashboard?sponsor_id=' + sponsorId);
 	});
 });

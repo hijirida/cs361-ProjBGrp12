@@ -178,10 +178,10 @@ app.get('/sponsor-dashboard', function(req, res) {
   context = {};
   console.log("Incoming user is " + req.query.sponsor_id);
 
-    //Adds donation amounts and associated charity to the donations table
+  //Adds donation amounts and associated charity to the donations table
   if (req.query.amount !== undefined) {
-    pool.query("INSERT INTO `sponsorships`(`donation_amount`, `charity_id`, `sponsor_id`) VALUES (?,?,?)",
-      [req.query.amount, req.query.charity_id, req.query.sponsor_id], function(err, results) {
+    pool.query("INSERT INTO `sponsorships`(`donation_amount`, `sponsorship`, `charity_id`, `sponsor_id`) VALUES (?,?,?,?)",
+      [req.query.amount, req.query.steps, req.query.charity_id, req.query.sponsor_id], function(err, results) {
         if (err) {
           console.log("error inserting into donations table");
           return;

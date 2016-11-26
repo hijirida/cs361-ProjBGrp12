@@ -37,6 +37,12 @@
                 <input type='number' id='amount'name='amount'>
               </div>
             </div>
+            <div class='form-group'>
+              <label class="col-sm-2 control-label">Required Steps</label>
+              <div class="col-sm-6">
+                <input type='number' id='steps'name='steps'>
+              </div>
+            </div>
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
                 <input type="submit" class="btn btn-primary" id="submitSponsorship">
@@ -49,12 +55,14 @@
           <tr>
             <th>Charity Name</th>
             <th>Pledge Amount</th>
+            <th>Required Steps</th>
           </tr>
           <tbody>
             {{#each sponsorships}}
             <tr>
               <td>{{this.charity_name}}</td>
               <td>{{this.donation_amount}}</td>
+              <td>{{this.sponsorship}}</td>
             </tr>
             {{/each}}
           </tbody>
