@@ -1,6 +1,5 @@
 #landingLogo {
-	margin-left: auto;
-	margin-right: auto;
+	margin: 0 auto;
 	height: 155px;
 	width: 700px;
 }
