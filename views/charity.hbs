@@ -7,56 +7,38 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src='/js/donations.js'></script>  
+    <script src='/js/donor.js'></script>  
   </head>
   <body>
     <div class="container">
       <div class='jumbotron'>
         <div class='container'>
-          <h1>Welcome to the donator dashboard.</h1>
+          <h1>Welcome to the charity landing page.</h1>
         </div>
       </div>  
-      <form class="form-horizontal" method='GET' action='http://52.27.76.189:'+{{portNum}}+'/donation' id='charityDonation'>
+      <form class="form-horizontal" method='GET' action='/charity-dashboard' id='getCharity'>
           <fieldset class="form-group">
-            <legend>Select a Charity</legend>
+            <legend>Select your account</legend>
             <div class='form-group'>
               <label class="col-sm-2 control-label">Name:</label>
               <div class="col-sm-6">
-                <select class="form-control" id="charity-name" name='name'>
+                <select class="form-control" id="charity-name" name='charity_id'>
                 {{#each charities}}
                   <option value='{{this.charity_id}}'>{{this.charity_name}}</option>
                 {{/each}}
                 </select>
               </div>
             </div>
-            <div class='form-group'>
-              <label class="col-sm-2 control-label">Amount $</label>
-              <div class="col-sm-6">
-                <input type='number' id='amount'name='amount'>
-              </div>
-            </div>
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
-                <input type="submit" class="btn btn-primary" id="submitCharityDonation">
+                <input type="submit" class="btn btn-primary" id="submitCharityName">
               </div>
             </div>
           </fieldset>
         </form> 
-        <h2>Pledged Donations</h2>
-        <table class="table table-striped">
-          <tr>
-            <th>Charity Name</th>
-            <th>Pledge Amount</th>
-          </tr>
-          <tbody>
-            {{#each donations}}
-            <tr>
-              <td>{{this.charity_name}}</td>
-              <td>{{this.donation_amount}}</td>
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
+        <form action="/add-charity">
+          <button type="submit" class="btn btn-primary" id="newCharity">Click here to add a charity</button>
+        </form>
     </div>
   </body>
 </html>

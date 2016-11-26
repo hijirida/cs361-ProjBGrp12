@@ -7,26 +7,28 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src='/js/donations.js'></script>  
+    <script src='/js/createSponsorship.js'></script>  
   </head>
   <body>
-    <div class="container">
-      <div class='jumbotron'>
-        <div class='container'>
-          <h1>Welcome to the donator dashboard.</h1>
-        </div>
-      </div>  
-      <form class="form-horizontal" method='GET' action='http://52.27.76.189:'+{{portNum}}+'/donation' id='charityDonation'>
+  	<div class="container">
+		<div class='jumbotron'>
+			<div class='container'>
+				<h1>Welcome, {{sponsor.sponsor_name}}</h1>
+			</div>
+		</div>	
+		<form class="form-horizontal" method='GET' action='/sponsor-dashboard' id='createSponsorship'>
           <fieldset class="form-group">
             <legend>Select a Charity</legend>
             <div class='form-group'>
               <label class="col-sm-2 control-label">Name:</label>
               <div class="col-sm-6">
-                <select class="form-control" id="charity-name" name='name'>
+                <select class="form-control" id="charity-name" name='charity_id'>
                 {{#each charities}}
                   <option value='{{this.charity_id}}'>{{this.charity_name}}</option>
                 {{/each}}
                 </select>
+                <input type='hidden' id='sponor_id' name='sponsor_id' 
+                value={{sponsor.sponsor_id}}>
               </div>
             </div>
             <div class='form-group'>
@@ -37,19 +39,19 @@
             </div>
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
-                <input type="submit" class="btn btn-primary" id="submitCharityDonation">
+                <input type="submit" class="btn btn-primary" id="submitSponsorship">
               </div>
             </div>
           </fieldset>
         </form> 
-        <h2>Pledged Donations</h2>
+        <h2>Your sponsorships:</h2>
         <table class="table table-striped">
           <tr>
             <th>Charity Name</th>
             <th>Pledge Amount</th>
           </tr>
           <tbody>
-            {{#each donations}}
+            {{#each sponsorships}}
             <tr>
               <td>{{this.charity_name}}</td>
               <td>{{this.donation_amount}}</td>
@@ -57,6 +59,6 @@
             {{/each}}
           </tbody>
         </table>
-    </div>
+  	</div>
   </body>
 </html>

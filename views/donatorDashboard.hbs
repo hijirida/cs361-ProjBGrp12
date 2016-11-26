@@ -12,17 +12,17 @@
   	<div class="container">
 		<div class='jumbotron'>
 			<div class='container'>
-				<h1>Welcome to the exerciser dashboard.</h1>
+				<h1>Welcome, {{donor.first_name}}</h1>
 			</div>
 		</div>	
-		<h2>Charities to Exercise</h2>
+		<h2>Charities to Exercise for</h2>
 		<table class="table table-striped">
 			<tr>
 				<th>Charity Name</th>
 				<th>Website</th>
 			</tr>
 			<tbody>
-				{{#each results}}
+				{{#each charities}}
 				<tr>
 					<td>{{this.charity_name}}</td>
 					<td><a href={{this.charity_website}}>{{this.charity_website}}</td>
