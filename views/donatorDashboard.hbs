@@ -15,8 +15,12 @@
 			<div class='container'>
 				<h1>Welcome, {{donor.first_name}}</h1>
 			</div>
-		</div>	
+		</div>
+		{{#if donorSponsoring.charity_name}}	
 		<h3>Current Sponsorship is supporting {{donorSponsoring.charity_name}}</h3>
+		{{else}}
+		<h3>No current sponsorship! Choose a sponsorship to participate in!</h3>
+		{{/if}}
 		<div class="form-group" method="GET" id='sponsorshipChoice' action='/donor-dashboard'>
 			<label>Available sponsorships</label>
 			{{#each sponsorships}}
