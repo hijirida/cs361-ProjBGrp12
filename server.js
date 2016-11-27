@@ -146,6 +146,26 @@ app.get('/add-charity', function(req, res) {
   });
 });
 
+app.get('/add-sponsor', function(req, res) {
+  var context = {};
+
+  if (req.query.name !== undefined) {
+      pool.query("INSERT INTO `sponsor`(`sponsor_name`) VALUES(?)",
+      [req.query.name],  function(err, results) {
+        if (err) {
+          console.log("error inserting charity table");
+          return;
+        }
+        console.log(results);
+      });
+    }; 
+
+  db.getSponsors().then(function(sponsors) {
+    context.sponsors = sponsors;
+    res.render('addSponsor.hbs', context);
+  });
+});
+
 
 
 //Renders dashboards

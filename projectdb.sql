@@ -12,3 +12,14 @@ CREATE TABLE `donor_sponsor` (`id` int NOT NULL AUTO_INCREMENT, `sponsorship_id`
 
 INSERT INTO `sponsor` (`sponsor_name`) VALUES ('New Seasons');
 INSERT INTO `sponsor` (`sponsor_name`) VALUES ('Nike');
+
+INSERT INTO `donor` (`username`, `password`, `first_name`) VALUES ('Daviduser', 'password', 'David');
+INSERT INTO `donor` (`username`, `password`, `first_name`) VALUES ('Example User', 'password', 'Example User');
+
+INSERT INTO `charity` (`charity_name`, `charity_website`, `charity_description`) VALUES ('Red Cross', 'www.redcross.org', 'Blood Donation Program');
+INSERT INTO `charity` (`charity_name`, `charity_website`, `charity_description`) VALUES ('Doctors without Borders', 'www.doctorswithoutborders.org', 'Providing medical aid where it is needed most');
+
+INSERT INTO `sponsorships` (`donation_amount`, `sponsorship`, `charity_id`, `sponsor_id`) VALUES (100, 10000, 1, 1);
+INSERT INTO `sponsorships` (`donation_amount`, `sponsorship`, `charity_id`, `sponsor_id`) VALUES (250, 50000, 2, 2);
+
+INSERT INTO `donor_sponsor` (`sponsorship_id`, `donor_id`) VALUES (1, 1);
