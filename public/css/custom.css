@@ -1,8 +1,13 @@
 #landingLogo {
 	margin-top: 50px;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 	height: 155px;
 	width: 700px;
+}
+
+#infotext {
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 
 hr.divider {
