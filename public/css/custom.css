@@ -16,3 +16,9 @@ hr.divider:after {
 	border-top: 1px solid #8c8b8b;
 	border-bottom: 1px solid #fff;
 }
+
+.body-card {
+  border: 1px solid #E1E8ED;
+  margin: 5px 20px 0 60px;
+  border-radius: 5px;
+}
