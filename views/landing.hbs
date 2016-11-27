@@ -27,16 +27,16 @@
 			</div>
 		</div>
 
+
+		<!--
 		<div class="container">
 			<div class="row">
 			  <div class="col-md-3 col-md-offset-3">
-			  	<div class="card card-outline-primary">
-				    <div class="card card-block">
-				      <h3 class="card-title">Be a donor</h3>
-				      <p class="card-text">Every step you take today can support a worthy cause.</p>
-				      <a href="#" class="btn btn-primary">Donor access</a>
-				    </div>
-				</div>
+			    <div class="card card-block">
+			      <h3 class="card-title">Be a donor</h3>
+			      <p class="card-text">Every step you take today can support a worthy cause.</p>
+			      <a href="#" class="btn btn-primary">Donor access</a>
+			    </div>
 			  </div>
 			  <div class="col-sm-3">
 			    <div class="card card-block">
@@ -54,25 +54,26 @@
 			  </div>
 			</div>
 		</div>
-
-		<!--
+		-->
 
 		<div class="container">
-			<div class="form-group" method="GET" id='userType'>
-				<label>Are you a:</label>
-				<div class="radio">
-				  <label><input type="radio" name="select-type" value="donor">Donor</label>
+			<div class="row">
+				<div class="col-lg-4 col-lg-offset-4">
+					<div class="form-group" method="GET" id='userType'>
+						<label>Are you a:</label>
+						<div class="radio">
+						  <label><input type="radio" name="select-type" value="donor">Donor</label>
+						</div>
+		                <div class="radio">
+						  <label><input type="radio" name="select-type" value="charity">Charity</label>
+						</div>
+						<div class="radio">
+						  <label><input type="radio" name="select-type" value="sponsor">Sponsor</label>
+						</div>
+						<button type="submit" class="btn btn-primary" id='submitUserType'>Submit</button>
+					</div>
 				</div>
-                <div class="radio">
-				  <label><input type="radio" name="select-type" value="charity">Charity</label>
-				</div>
-				<div class="radio">
-				  <label><input type="radio" name="select-type" value="sponsor">Sponsor</label>
-				</div>
-				<button type="submit" class="btn btn-primary" id='submitUserType'>Submit</button>
 			</div>
 		</div>
-
-		-->
 	</body>
 </html>
