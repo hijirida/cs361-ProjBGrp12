@@ -21,6 +21,6 @@
 #infotext {
 	margin-top: 20px;
 	margin-bottom: 40px;
-	text-align: justify;
-    text-justify: inter-word;
+	font-family: MuseoSans, serif;
+    font-size: 15px;
 }
