@@ -13,24 +13,12 @@
 
 #landingLogo {
 	margin-top: 50px;
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 	height: 133px;
 	width: 600px;
 }
 
 #infotext {
 	margin-top: 20px;
-	margin-bottom: 20px;
-}
-
-hr.divider {
-	border-top: 1px solid #8c8b8b;
-	border-bottom: 1px solid #fff;
-}
-hr.divider:after {
-	content: '';
-	display: block;
-	margin-top: 2px;
-	border-top: 1px solid #8c8b8b;
-	border-bottom: 1px solid #fff;
+	margin-bottom: 40px;
 }
