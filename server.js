@@ -13,7 +13,7 @@ var pool = mysql.createPool({
 
 var app = express();
 
-app.set('port', process.env.PORT || 5000);
+app.set('port', process.env.PORT || 3002);
 
 app.use(express.static(__dirname + '/public'));
 app.use(session({secret:'SuperSecretPassword', resave: false, saveUninitialized: true}));
