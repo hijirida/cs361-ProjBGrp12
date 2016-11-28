@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>CS361 Project</title>
+    <title>fit for charity</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
@@ -15,24 +17,35 @@
   </head>
 	<body>
 		<div class="container">
-			<div class='jumbotron'>
-				<div class='container'>
-					<h1>Fit for Charity</h1>
-					<p>Working out to help others</p>
+			<img src="/images/largelogo2.png" alt="site logo" class="img-responsive center-block" id="landingLogo"/>
+		</div>
+		
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2" id="infotext">
+					Whether you have money to give or steps to take, fit for charity will enable you to contribute to a worthy cause. You can become a sponsor by pledging a step goal and associated donation amount to a charity. Or act as a donor by applying the steps you take towards a sponsored goal. In whichever way you can contribute, let fit for charity help you take steps towards supporting those in need.
 				</div>
-			</div>	
-			<div class="form-group" method="GET" id='userType'>
-				<label>Are you a:</label>
-				<div class="radio">
-				  <label><input type="radio" name="select-type" value="donor">Donor</label>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2" id="formtext">
+					<div class="form-group" method="GET" id='userType'>
+						<label>Choose from below to enter the app:</label>
+						<div class="radio">
+						  <label><input type="radio" name="select-type" value="donor">Donor</label>
+						</div>
+		                <div class="radio">
+						  <label><input type="radio" name="select-type" value="charity">Charity</label>
+						</div>
+						<div class="radio">
+						  <label><input type="radio" name="select-type" value="sponsor">Sponsor</label>
+						</div>
+						<button type="submit" class="btn btn-primary" id='submitUserType'>Submit</button>
+					</div>
 				</div>
-                <div class="radio">
-				  <label><input type="radio" name="select-type" value="charity">Charity</label>
-				</div>
-				<div class="radio">
-				  <label><input type="radio" name="select-type" value="sponsor">Sponsor</label>
-				</div>
-				<button type="submit" class="btn btn-primary" id='submitUserType'>Submit</button>
 			</div>
 		</div>
 	</body>

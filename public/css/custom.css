@@ -1,0 +1,18 @@
+#landingLogo {
+	margin-top: 50px;
+	margin-bottom: 20px;
+	height: 137px;
+	width: 620px;
+}
+
+#infotext {
+	margin-top: 20px;
+	margin-bottom: 40px;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 18px;
+}
+
+#formtext {
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 16px;
+}
