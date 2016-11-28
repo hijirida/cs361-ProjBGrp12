@@ -146,6 +146,26 @@ app.get('/add-charity', function(req, res) {
   });
 });
 
+app.get('/add-sponsor', function(req, res) {
+  var context = {};
+
+  if (req.query.name !== undefined) {
+      pool.query("INSERT INTO `sponsor`(`sponsor_name`) VALUES(?)",
+      [req.query.name],  function(err, results) {
+        if (err) {
+          console.log("error inserting charity table");
+          return;
+        }
+        console.log(results);
+      });
+    }; 
+
+  db.getSponsors().then(function(sponsors) {
+    context.sponsors = sponsors;
+    res.render('addSponsor.hbs', context);
+  });
+});
+
 
 
 //Renders dashboards
@@ -153,12 +173,27 @@ app.get('/donator-dashboard', function(req, res) {
   context = {};
   console.log("Incoming user is " + req.query.donor_id);
 
+  //Adds donation amounts and associated charity to the donations table
+  if (req.query.sponsorship_id !== undefined) {
+    pool.query("INSERT INTO `donor_sponsor`(`sponsorship_id`, `donor_id`) VALUES (?,?)",
+      [req.query.sponsorship_id, req.query.donor_id], function(err, results) {
+        if (err) {
+          console.log("error inserting into donations table");
+          return;
+        }
+      });
+  };
+
   db.getDonor(req.query.donor_id).then(function (donor) {
-    db.getCharities().then(function(charities) {
-      context.donor = donor[0];
-      context.charities = charities;
-      console.log(donor);
-      res.render('donatorDashboard', context);
+    db.getAvailableSponsorships().then(function(sponsorships) {
+      db.getSponsorshipsByDonor(req.query.donor_id).then(function (donorSponsoring) {
+        context.donor = donor[0];
+        context.sponsorships = sponsorships;
+        context.donorSponsoring = donorSponsoring[0];
+        console.log('donor sponsoring ' + donorSponsoring)
+        console.log(sponsorships);
+        res.render('donatorDashboard', context);
+      });
     });
   });
 });
@@ -178,10 +213,10 @@ app.get('/sponsor-dashboard', function(req, res) {
   context = {};
   console.log("Incoming user is " + req.query.sponsor_id);
 
-    //Adds donation amounts and associated charity to the donations table
+  //Adds donation amounts and associated charity to the donations table
   if (req.query.amount !== undefined) {
-    pool.query("INSERT INTO `sponsorships`(`donation_amount`, `charity_id`, `sponsor_id`) VALUES (?,?,?)",
-      [req.query.amount, req.query.charity_id, req.query.sponsor_id], function(err, results) {
+    pool.query("INSERT INTO `sponsorships`(`donation_amount`, `sponsorship`, `charity_id`, `sponsor_id`) VALUES (?,?,?,?)",
+      [req.query.amount, req.query.steps, req.query.charity_id, req.query.sponsor_id], function(err, results) {
         if (err) {
           console.log("error inserting into donations table");
           return;
@@ -191,7 +226,7 @@ app.get('/sponsor-dashboard', function(req, res) {
 
   db.getSponsor(req.query.sponsor_id).then(function (sponsor) {
     db.getCharities().then(function (charities) {
-      db.getSponsorships(req.query.sponsor_id).then(function (sponsorships) {
+      db.getSponsorshipsBySponsor(req.query.sponsor_id).then(function (sponsorships) {
           context.sponsorships = sponsorships;      
           context.sponsor = sponsor[0];
           context.charities = charities;
