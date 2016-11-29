@@ -21,19 +21,24 @@
 		{{else}}
 			<h3>No current sponsorship! Choose a sponsorship to participate in!</h3>
 		{{/if}}
-		{{#if sponsorships}}
-		<div class="form-group" method="GET" id='sponsorshipChoice' action='/donor-dashboard'>
-			<label>Available sponsorships</label>
-			{{#each sponsorships}}
-			<div class="radio">
-			  <label><input type="radio" name="select-sponsorship" value="{{this.id}}">{{this.charity_name}}, Required Steps = {{this.sponsorship}}</label>
+
+		{{#if donorSponsoring.charity_name}}
+		<!-- Don't display available sponsorships to sign up for if already associated with a sponsorship -->
+		{{else}}
+			{{#if sponsorships}}
+			<div class="form-group" method="GET" id='sponsorshipChoice' action='/donor-dashboard'>
+				<label>Available sponsorships</label>
+				{{#each sponsorships}}
+				<div class="radio">
+				  <label><input type="radio" name="select-sponsorship" value="{{this.charity_id}}">{{this.charity_name}}, Required Steps = {{this.sponsorship}}</label>
+				</div>
+	  			{{/each}}
+	  			<input type='hidden' id='donor_id' name='donor_id' value='{{donor.donor_id}}'>
+				<button type="submit" class="btn btn-primary" id='submitSponsorshipChoice'>Submit</button>
 			</div>
-  			{{/each}}
-  			<input type='hidden' id='donor_id' name='donor_id' value='{{donor.donor_id}}'>
-			<button type="submit" class="btn btn-primary" id='submitSponsorshipChoice'>Submit</button>
-		</div>
-		{{else}} 
-		<h2>Currently no available sponsorships</h2>
+			{{else}} 
+			<h2>Currently no available sponsorships</h2>
+			{{/if}}
 		{{/if}}
 		<h2>Progress bar to show how far until goal:</h2>
 		<div class="progress">

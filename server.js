@@ -175,8 +175,8 @@ app.get('/donator-dashboard', function(req, res) {
 
   //Adds donation amounts and associated charity to the donations table
   if (req.query.sponsorship_id !== undefined) {
-    pool.query("INSERT INTO `donor_sponsor`(`sponsorship_id`, `donor_id`) VALUES (?,?)",
-      [req.query.sponsorship_id, req.query.donor_id], function(err, results) {
+    pool.query("INSERT INTO `donor_sponsor`(`donor_id`, `sponsorship_id`) VALUES (?,?)",
+      [req.query.donor_id, req.query.sponsorship_id], function(err, results) {
         if (err) {
           console.log("error inserting into donations table");
           return;
@@ -225,7 +225,7 @@ app.get('/sponsor-dashboard', function(req, res) {
   };
 
   db.getSponsor(req.query.sponsor_id).then(function (sponsor) {
-    db.getCharities().then(function (charities) {
+    db.getCharitiesWithoutSponsors().then(function (charities) {
       db.getSponsorshipsBySponsor(req.query.sponsor_id).then(function (sponsorships) {
           context.sponsorships = sponsorships;      
           context.sponsor = sponsor[0];

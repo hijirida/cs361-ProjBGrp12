@@ -13,7 +13,7 @@ $(document).ready(function () {
     console.log(website);
     var description = $('#newCharity').find('#charityDescription').val();
     console.log(description);
-    $.get(serverURL + 'add-charity?name='+name+'&website='+website+'&charityDescription='+description);
+    $.get(serverURL + 'add-charity?name='+name+'&website='+website+'&charityDescription='+description)
       .done(window.location = serverURL + 'add-charity');
   });
 });
