@@ -43,6 +43,18 @@ exports.getCharities = function() {
   });
 };
 
+exports.getCharitiesWithoutSponsors = function() { 
+  return new Promise(function(resolve, reject) {
+    pool.query("SELECT * FROM `charity` WHERE `charity_id` NOT IN (SELECT `charity_id` FROM `sponsorships`)", function(err, results, fields) {
+      if (err) {
+        console.log("error display charity table");;
+        return;
+      }
+      resolve(results);
+    });
+  });
+};
+
 exports.getCharity = function(id) { 
   return new Promise(function(resolve, reject) {
     pool.query("SELECT * FROM `charity` WHERE charity_id ="+id+"", function(err, results, fields) {
@@ -105,7 +117,7 @@ exports.getAvailableSponsorships = function(id) {
 
 exports.getSponsorshipsByDonor = function(id) { 
   return new Promise(function(resolve, reject) {
-    pool.query("SELECT * FROM `donor_sponsor` INNER JOIN `sponsorships` ON donor_sponsor.sponsorship_id=sponsorships.id INNER JOIN `charity` ON sponsorships.charity_id = charity.charity_id WHERE donor_sponsor.donor_id="+id+"", function(err, results, fields) {
+    pool.query("SELECT * FROM `donor_sponsor` INNER JOIN `sponsorships` ON donor_sponsor.sponsorship_id=sponsorships.charity_id INNER JOIN `charity` ON sponsorships.charity_id = charity.charity_id WHERE donor_sponsor.donor_id="+id+"", function(err, results, fields) {
       if (err) {
         console.log("error display charity table");;
         return;
