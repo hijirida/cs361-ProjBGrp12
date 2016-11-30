@@ -56,7 +56,6 @@ app.get('/sponsor', function(req, res) {
 
 //Renders pages to set up new accounts
 app.get('/donorsetup', function(req, res) {
-  // add code here for donorsetup
   context = {};
   console.log ("Successfully got to donorsetup");
   pool.query("SELECT * FROM `donor`", function(err, rows, fields) {
@@ -111,8 +110,8 @@ app.get('/addDonor', function (req, res, next) {
     );
   }
 
-  // Note: I played with adding a slight delay because the table below was rendering before the new donor entry was added
-  // Improvement note: Show a different view if there is a duplicate username "sorry, there is a duplicate username" message
+  // Note: I played with adding a delay because the table below rendered before new donor was added
+  // Next improvement: Show a different view or msg if a duplicate username "sorry, there is a duplicate username"
   setTimeout(function() {
     pool.query("SELECT * FROM `donor`", function(err, rows, fields) {
      if (err) {
@@ -125,6 +124,7 @@ app.get('/addDonor', function (req, res, next) {
   }, 500);
 
 });
+
 
 app.get('/add-charity', function(req, res) {
   var context = {};
@@ -237,6 +237,66 @@ app.get('/sponsor-dashboard', function(req, res) {
   });
 });
 
+// Renders a success message for adding new steps 
+// This is called from /donator-dashboard
+// Improvement idea: check to see if new steps takes progress past the goal!
+app.get('/donator-addsteps', function(req, res) {
+  context = {};
+  console.log ("Successfully got to donator-addsteps");
+
+  // show the number of steps passed
+  //console.log ("new_donor_steps = ", req.query.new_donor_steps);
+
+  // show the donor id
+  //console.log ("donor_id = ", req.query.donor_id);
+
+  db.getDonor(req.query.donor_id).then(function (donor) {
+    //console.log("donor = ", donor);
+    context.donor = donor[0];
+  });
+
+  // get lifteime steps
+  db.getLifetimeSteps(req.query.donor_id).then(function (result) {
+    context.donorid = parseInt(req.query.donor_id); // force text to integer
+    context.lifetime_steps = result[0].lifetime_steps;
+    context.new_donor_steps = parseInt(req.query.new_donor_steps); // force text to integer
+    context.new_lifetime_steps = context.lifetime_steps + context.new_donor_steps;
+    //console.log ("*** context = ", context);
+    
+    // get charity id, cursteps, and progress given donor id
+    db.getSponsorshipsByDonor (parseInt(req.query.donor_id)).then (function(sponsorship) {
+      console.log ("sponsorship = ", sponsorship); 
+      context.charityid = sponsorship[0].charity_id;
+      context.cursteps = sponsorship[0].cur_steps;
+      context.newcursteps = context.cursteps + context.new_donor_steps;
+      context.progress = sponsorship[0].progress;
+      context.newprogress = context.newcursteps / sponsorship[0].sponsorship * 100;
+      console.log ("**** context = ", context);
+   
+      // get charity name given charity id
+      db.getCharity (context.charityid).then (function(charity) {
+        console.log("charityname = ", charity);
+        context.charity_name = charity[0].charity_name;
+      });
+   
+      // update lifetime steps donor table
+      db.updateLifetimeSteps(context.donorid, context.new_lifetime_steps).then (function (add_lifetime_steps) {
+         //console.log ("addstepresult = ", add_lifetime_steps);
+
+         // update cur_steps in sponsorhips table
+         db.updateSponsorshipsSteps(context.charityid, context.newcursteps).then (function (add_cur_steps) {
+           console.log ("add_cur_steps = ", add_cur_steps);
+         });
+
+         // update progress in sponsorships table
+         db.updateProgress(context.charityid, context.newprogress). then (function (add_progress) {
+	   console.log ("add_progress = ", add_progress);
+           res.render('addDonorSteps.hbs', context); 
+         });
+      });
+   });
+  });
+});
 
 app.use(function(req, res, next){
   res.type('text/plain');

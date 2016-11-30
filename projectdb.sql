@@ -4,7 +4,8 @@ DROP TABLE IF EXISTS `sponsor`;
 DROP TABLE IF EXISTS `charity`;
 DROP TABLE IF EXISTS `donor`;
 
-CREATE TABLE `donor` (`donor_id` int NOT NULL AUTO_INCREMENT, `username` varchar(255), `password` varchar(255), `first_name` varchar(255), `last_name` varchar(255), `short_description` varchar(255), PRIMARY KEY(`donor_id`));
+#CREATE TABLE `donor` (`donor_id` int NOT NULL AUTO_INCREMENT, `username` varchar(255), `password` varchar(255), `first_name` varchar(255), `last_name` varchar(255), `short_description` varchar(255), PRIMARY KEY(`donor_id`));
+CREATE TABLE `donor` (`donor_id` int NOT NULL AUTO_INCREMENT, `username` varchar(255), `password` varchar(255), `first_name` varchar(255), `last_name` varchar(255), `short_description` varchar(255), `lifetime_steps` int, PRIMARY KEY(`donor_id`));
 CREATE TABLE `charity` (`charity_id` int NOT NULL AUTO_INCREMENT, `charity_name` varchar(255), `charity_website` varchar(255), `charity_description` varchar(255), PRIMARY KEY(`charity_id`));
 CREATE TABLE `sponsor` (`sponsor_id` int NOT NULL AUTO_INCREMENT, `sponsor_name` varchar(255), PRIMARY KEY(`sponsor_id`));
 CREATE TABLE `sponsorships` (`charity_id` int NOT NULL, `donation_amount` int, `sponsorship` int, `cur_steps` int, `progress` decimal(4, 2) NOT NULL, `sponsor_id` int, PRIMARY KEY(`charity_id`), FOREIGN KEY(`charity_id`) REFERENCES `charity` (`charity_id`), FOREIGN KEY(`sponsor_id`) REFERENCES `sponsor` (`sponsor_id`));
@@ -14,8 +15,8 @@ INSERT INTO `sponsor` (`sponsor_name`) VALUES ('New Seasons');
 INSERT INTO `sponsor` (`sponsor_name`) VALUES ('Nike');
 INSERT INTO `sponsor` (`sponsor_name`) VALUES ('Disney');
 
-INSERT INTO `donor` (`username`, `password`, `first_name`) VALUES ('Daviduser', 'password', 'David');
-INSERT INTO `donor` (`username`, `password`, `first_name`) VALUES ('Example User', 'password', 'Example User');
+INSERT INTO `donor` (`username`, `password`, `first_name`, `lifetime_steps`) VALUES ('Daviduser', 'password', 'David', 1000);
+INSERT INTO `donor` (`username`, `password`, `first_name`, `lifetime_steps`) VALUES ('Example User', 'password', 'Example User', 210);
 
 INSERT INTO `charity` (`charity_name`, `charity_website`, `charity_description`) VALUES ('Red Cross', 'www.redcross.org', 'Blood Donation Program');
 INSERT INTO `charity` (`charity_name`, `charity_website`, `charity_description`) VALUES ('Doctors without Borders', 'www.doctorswithoutborders.org', 'Providing medical aid where it is needed most');
