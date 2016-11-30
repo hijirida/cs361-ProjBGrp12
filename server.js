@@ -16,7 +16,8 @@ var app = express();
 app.set('port', process.env.PORT || 3002);
 
 app.use(express.static(__dirname + '/public'));
-app.use(session({secret:'SuperSecretPassword', resave: false, saveUninitialized: true}));
+//app.use(session({secret:'SuperSecretPassword', resave: false, saveUninitialized: true}));
+hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engine', 'hbs');
 
 
@@ -290,7 +291,7 @@ app.get('/donator-addsteps', function(req, res) {
 
          // update progress in sponsorships table
          db.updateProgress(context.charityid, context.newprogress). then (function (add_progress) {
-	   console.log ("add_progress = ", add_progress);
+	           console.log ("add_progress = ", add_progress);
            res.render('addDonorSteps.hbs', context); 
          });
       });

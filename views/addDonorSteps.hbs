@@ -1,4 +1,3 @@
-<!DOCCTYPE html>
 <html lang="en">
   <head>
     <title>CS361 Project</title>
@@ -10,30 +9,24 @@
     <script src='/js/addDonorSteps.js'></script>
   </head>
   <body>
-
   	<div class="container">
-        	<div class='jumbotron'>
-                       	<div class='container'>
-                                <h1>Great work {{donor.first_name}}</h1>
-                        </div>
-                </div>
+      <div class='jumbotron'>
+        <div class='container'>
+          <h1>Great work {{donor.first_name}}</h1>
+        </div>
+    </div>
 		<div>
 		  <p>Your previous lifetime steps = {{lifetime_steps}}</p>
-                  <p>Your new lifetime steps = {{new_lifetime_steps}}</p>
-                  <p>Previous steps for {{charity_name}} = {{cursteps}}</p>
-                  <p>New steps for {{charity_name}} = {{newcursteps}}</p>
+      <p>Your new lifetime steps = {{new_lifetime_steps}}</p>
+      <p>Previous steps for {{charity_name}} = {{cursteps}}</p>
+      <p>New steps for {{charity_name}} = {{newcursteps}}</p>
 		  <p>Previous progress for {{charity_name}} = {{progress}}</p>
 		  <p>New progress for {{charity_name}} = {{newprogress}}</p>
-                  <p> INSERT CHARITY PROGRESS BAR HERE </p>
-                  <p> <a href="/donator-dashboard?donor_id={{donorid}}">Back to the donor dashboard page</a></p>
-                </div>
-        </div>
-
-
-
-
-
-
+      <p> INSERT CHARITY PROGRESS BAR HERE </p>
+      <p> <a href="/donator-dashboard?donor_id={{donorid}}">Back to the donor dashboard page</a></p>
+    </div>
+    {{> linkToHome}}
+    </div>
   </body>
 </html>
 

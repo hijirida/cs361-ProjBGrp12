@@ -22,8 +22,12 @@ $(document).ready(function () {
 		event.preventDefault();
 		var donor_id = $('#addSteps').find('input[name="donor_id"]').val();
 		//console.log("** donor_id = ", donor_id);
-      		var new_donor_steps = $('#addSteps').find('input[name="new_donor_steps"]').val(); 
-		//$.get(serverURL + 'donator-addsteps?donor_id='+donor_id+'&new_donor_steps='+new_donor_steps) // this was not working??)
-		$.get().done(window.location = serverURL + 'donator-addsteps?donor_id='+donor_id+'&new_donor_steps='+new_donor_steps);
+      	var new_donor_steps = $('#addSteps').find('input[name="new_donor_steps"]').val(); 
+      	if (new_donor_steps <= 0) {
+     		alert('Warning: Number of steps must be > 0');
+      	} else {
+			//$.get(serverURL + 'donator-addsteps?donor_id='+donor_id+'&new_donor_steps='+new_donor_steps) // this was not working??)
+			$.get().done(window.location = serverURL + 'donator-addsteps?donor_id='+donor_id+'&new_donor_steps='+new_donor_steps);
+		}
 	});
 });

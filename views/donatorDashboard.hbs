@@ -10,7 +10,7 @@
     <script src='/js/associateSponsorship.js'></script>
   </head>
   <body>
-  	<div class="container">
+  	<div class="container" id="mainContainer">
 		<div class='jumbotron'>
 			<div class='container'>
 				<h1>Welcome, {{donor.first_name}}</h1>
@@ -31,9 +31,9 @@
 		  	</div>
 		</div>
     		
-                <!-- --------------------------------- --!>
-		<!-- Ask donor to manually input steps --!>
-                <!-- --------------------------------- --!>
+                <!-- --------------------------------- -->
+		<!-- Ask donor to manually input steps -->
+                <!-- --------------------------------- -->
 		<h2>Manually add your fitbit steps toward the sponsorship goal:</h2>
 		<h3>Enter the number of new steps to add:</h3>
 		<form class="form-horizontal" method='GET' id='addSteps' action= '/donator-addsteps'>
@@ -55,8 +55,7 @@
 		
 		{{else}}
 			{{#if sponsorships}}
-                              <!-- Question from David: Does this action='/donor-dashboard' do anything? (/donor-dashboard doesn't exist) --!>
-			<div class="form-group" method="GET" id='sponsorshipChoice' action='/donor-dashboard'>
+			<div class="form-group" method="GET" id='sponsorshipChoice' action='/donator-dashboard'>
 				<label>Available sponsorships</label>
 				{{#each sponsorships}}
 				<div class="radio">
@@ -75,6 +74,7 @@
 			<h2>Currently no available sponsorships</h2>
 			{{/if}}
 		{{/if}}
+		{{> linkToHome}}
   	</div>
   </body>
 </html>
