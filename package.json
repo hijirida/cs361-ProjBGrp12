@@ -1,7 +1,7 @@
 {
   "name": "cs361",
   "version": "1.0.0",
-  "description": "",
+  "description": "Repository for cs361 project B, group 12",
   "main": "dbtest.js",
   "scripts": {
     "test": "mocha **/*.test.js",
@@ -23,5 +23,16 @@
     "mocha": "^3.0.2",
     "nodemon": "^1.10.2",
     "supertest": "^2.0.0"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hijirida/cs361-ProjBGrp12.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hijirida/cs361-ProjBGrp12/issues"
+  },
+  "homepage": "https://github.com/hijirida/cs361-ProjBGrp12#readme"
 }
