@@ -1,0 +1,39 @@
+<!DOCCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS361 Project</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src='/js/addDonorSteps.js'></script>
+  </head>
+  <body>
+
+  	<div class="container">
+        	<div class='jumbotron'>
+                       	<div class='container'>
+                                <h1>Great work {{donor.first_name}}</h1>
+                        </div>
+                </div>
+		<div>
+		  <p>Your previous lifetime steps = {{lifetime_steps}}</p>
+                  <p>Your new lifetime steps = {{new_lifetime_steps}}</p>
+                  <p>Previous steps for {{charity_name}} = {{cursteps}}</p>
+                  <p>New steps for {{charity_name}} = {{newcursteps}}</p>
+		  <p>Previous progress for {{charity_name}} = {{progress}}</p>
+		  <p>New progress for {{charity_name}} = {{newprogress}}</p>
+                  <p> INSERT CHARITY PROGRESS BAR HERE </p>
+                  <p> <a href="/donator-dashboard?donor_id={{donorid}}">Back to the donor dashboard page</a></p>
+                </div>
+        </div>
+
+
+
+
+
+
+  </body>
+</html>
+

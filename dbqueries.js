@@ -128,3 +128,52 @@ exports.getSponsorshipsByDonor = function(id) {
 };
 
 
+exports.getLifetimeSteps = function(id) {
+  return new Promise (function(resolve, reject) {
+    pool.query("SELECT `lifetime_steps` FROM `donor` WHERE donor_id="+id+"", function (err, results, fields) {
+      if (err) {
+        console.log("error displaying get Lifetime Steps");
+        return;
+      }
+      resolve (results);
+    });
+  }); 
+};
+
+exports.updateLifetimeSteps = function(id, steps) {
+  return new Promise (function(resolve, reject) {
+    pool.query("UPDATE `donor` SET `lifetime_steps` ="+steps+" WHERE donor_id="+id+"", function(err, results, fields) {
+      if (err) {
+        console.log("error updating lifetime_steps");;
+        return;
+      }
+      resolve(results);
+    });
+  });
+};
+
+exports.updateSponsorshipsSteps = function (id, steps) {
+  return new Promise (function(resolve, reject) {
+    pool.query("UPDATE `sponsorships` SET `cur_steps` = "+steps+" WHERE charity_id="+id+"", function(err, results, fields) {
+      if (err) {
+        console.log ("error updating cur_steps in sponsorship table");
+        return;
+      }
+      resolve(results);
+    });
+  });
+};
+
+exports.updateProgress = function (id, new_progress) {
+  return new Promise (function(resolve, reject) {
+    pool.query("UPDATE `sponsorships` SET `progress` = "+new_progress+" WHERE charity_id="+id+"", function(err, results, fields) {
+      if (err) {
+        console.log ("error updating progress in sponsorship table");
+        return;
+      }
+      resolve(results);
+    });
+  });
+};
+
+

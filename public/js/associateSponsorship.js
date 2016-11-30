@@ -15,3 +15,15 @@ $(document).ready(function () {
 		 	.done(window.location = serverURL + 'donator-dashboard?donor_id=' + donor_id);
 	});
 });
+
+// This listens for donor adding steps form submission 
+$(document).ready(function () {
+	$("#submitAddSteps").on('click', function (event) {
+		event.preventDefault();
+		var donor_id = $('#addSteps').find('input[name="donor_id"]').val();
+		//console.log("** donor_id = ", donor_id);
+      		var new_donor_steps = $('#addSteps').find('input[name="new_donor_steps"]').val(); 
+		//$.get(serverURL + 'donator-addsteps?donor_id='+donor_id+'&new_donor_steps='+new_donor_steps) // this was not working??)
+		$.get().done(window.location = serverURL + 'donator-addsteps?donor_id='+donor_id+'&new_donor_steps='+new_donor_steps);
+	});
+});
