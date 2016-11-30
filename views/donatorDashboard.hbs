@@ -30,7 +30,12 @@
 				<label>Available sponsorships</label>
 				{{#each sponsorships}}
 				<div class="radio">
-				  <label><input type="radio" name="select-sponsorship" value="{{this.charity_id}}">{{this.charity_name}}, Required Steps = {{this.sponsorship}}</label>
+				  <label><input type="radio" name="select-sponsorship" value="{{this.charity_id}}">{{this.charity_name}}, Required Steps = {{this.sponsorship}}, Current Steps = {{this.cur_steps}}</label>
+				</div>
+				<div class="progress">
+					<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{this.cur_steps}}" aria-valuemin="0" aria-valuemax="{{this.sponsorship}}" style="width:{{this.completion}}%">
+					{{this.completion}}%
+					</div>
 				</div>
 	  			{{/each}}
 	  			<input type='hidden' id='donor_id' name='donor_id' value='{{donor.donor_id}}'>
